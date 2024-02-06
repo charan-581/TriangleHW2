@@ -1,2 +1,2 @@
 # TriangleHW2
-SSW 567WS Homework 1
+[![build status of master](https://travis-ci.org/charan-581/TriangleHW2.svg?branch=master)](https://travis-ci.org/charan-581/TriangleHW2)
