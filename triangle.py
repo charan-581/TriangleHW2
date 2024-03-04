@@ -1,29 +1,25 @@
-def classifyTriangle(a = None, b = None, c = None):
-    
-    if not(isinstance(a, int) and isinstance(b, int) and isinstance(c, int)):
+"""
+Module for classifying triangles based on side lengths.
+"""
+
+def classifyTriangle(a=None, b=None, c=None):
+    """
+    Classify the type of triangle based on side lengths.
+    Args:
+        a (int): Length of side a.
+        b (int): Length of side b.
+        c (int): Length of side c.
+    Returns:
+        str: Classification of the triangle.
+    """
+    if not all(isinstance(side, int) for side in [a, b, c]) or None in [a, b, c]:
         return 'InvalidInput'
-    
-    elif a == None or b == None or c == None:
+    if any(side <= 0 for side in [a, b, c]) or any(side > 200 for side in [a, b, c]):
         return 'InvalidInput'
-    
-    elif a > 200 or b > 200 or c > 200:
-        return 'InvalidInput'
-        
-    elif a <= 0 or b <= 0 or c <= 0:  # Fix the condition for b
-        return 'InvalidInput'
-    
-    # verify that all 3 inputs are integers  
-    # Python's "isinstance(object,type) returns True if the object is of the specified type
-  
-    if (a >= (b + c)) or (b >= (a + c)) or (c >= (a + b)):  # Fix the conditions
+    if a + b <= c or b + c <= a or a + c <= b:
         return 'NotATriangle'
-
-    if a == b and b == c and a == c:  # Fix the condition to check for Equilateral
+    if a == b == c:
         return 'Equilateral'
-    elif ((a**2) + (b**2)) == (c**2) or ((b**2) + (c**2)) == (a**2) or ((a**2) + (c**2)) == (b**2):
+    if any(a ** 2 + b ** 2 == c ** 2 for a, b, c in [(a, b, c), (b, c, a), (c, a, b)]):
         return 'Right'
-    elif a != b and b != c and a != c:  # Fix the condition
-        return 'Scalene'
-    else:
-        return 'Isosceles' 
-
+    return 'Scalene' if len(set([a, b, c])) == 3 else 'Isosceles'
